@@ -1,0 +1,10 @@
+$line-color: rgba(217, 83, 79, 0.8);
+$active-color: rgba(238, 217, 54, 0.5);
+
+@mixin line-position {
+    content: "";
+    position: absolute;
+    left: calc(50% - 1px);
+    width: 2px;
+    background-color: $line-color;
+}

@@ -1,0 +1,27 @@
+.side-bar {
+    display: grid;
+    grid-template-rows: 40px auto;
+    row-gap:30px;
+
+    .filters {
+        display:flex;
+        column-gap:10px;
+        flex-flow: row nowrap;
+
+        .filter-item {
+            width:48%;
+            height: 30px;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+    }
+
+    .filter-results {
+        p {
+            text-align: center;
+        } 
+    } 
+}
+
+
+
