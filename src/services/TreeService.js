@@ -17,4 +17,3 @@ export const createTree = (data) => {
       });    
    return root;
 }
-/*createTree()*/

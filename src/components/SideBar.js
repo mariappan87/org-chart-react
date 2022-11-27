@@ -1,22 +1,35 @@
-import React, {useState, useMemo} from "react";
-import TeamData, {filterUsers} from '../store';
+import React, { useState } from "react";
+import _ from 'lodash';
 import NodeItem from "./NodeItem";
 import '../styles/side-bar.scss';
 
-function SideBar() {
+function SideBar({ datasource }) {
+
     const [selectedTeam, setSelectedTeam] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    let filteredUsers = useMemo(() => filterUsers(searchTerm), [searchTerm]);
+    const [filteredItems, setFilteredItems] = useState(datasource);
+    const teamdata = _.groupBy(datasource, 'team');
 
-    const options = Object.keys(TeamData).map(team => <option key={team} value={team}>{team}</option>);
+    const filterUsers = (searchTerm) => {
+        if (searchTerm.length === 0) {
+          return datasource;
+        }
+        return datasource.filter(obj => Object.values(obj).some(val => {            
+            return typeof val === 'string' &&
+                    val.toUpperCase().indexOf(searchTerm.toUpperCase()) >= 0;
+        }));
+    };
 
-    filteredUsers = TeamData[selectedTeam] || filteredUsers;
+    const options = Object.keys(teamdata).map(team => <option key={team} value={team}>{team}</option>);
+
+    const filteredUsers = teamdata[selectedTeam] || filteredItems;
     
     let nodeItems = filteredUsers.map(item => <div className='oc-node' key={item.id} ><NodeItem node={item}></NodeItem></div>);
     
     const searchUsers = (event) => {
         setSelectedTeam('');
         setSearchTerm(event.target.value);
+        setFilteredItems(filterUsers(event.target.value));
     };
     
     const filterTeamUsers = (event) => {
@@ -27,7 +40,7 @@ function SideBar() {
     return (
         <section className='side-bar'>
             <section className='filters'>
-                <input type='text' className='filter-item' value={searchTerm} onChange={searchUsers}placeholder="Search" />
+                <input type='text' className='filter-item' value={searchTerm} onChange={searchUsers} placeholder="Search" />
                 <select className='filter-item' value={selectedTeam} onChange={filterTeamUsers}>
                     <option value=''>---Select---</option>
                     {options}

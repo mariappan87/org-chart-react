@@ -19,9 +19,8 @@ const ChartNode = ({ datasource, draggable, changeHierarchy }) => {
         "oc-node",
         allowedDrop ? "allowedDrop" : "",
     ].join(" ");
-    
 
-    useEffect(() => {                
+    useEffect(() => {
       const subs1 = dragNodeService.getDragInfo().subscribe(draggedInfo => {
         if (draggedInfo) {
           setAllowedDrop(

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import JSONDigger from "json-digger";
 import ChartNode from './ChartNode';
@@ -13,28 +13,24 @@ const defaultProps = {
 };
 
 const Chart = ({ datasource, draggable }) => {
-    const attachRel = (data, flags) => {
-        data.relationship =
-          flags + (data.children && data.children.length > 0 ? 1 : 0);
-        if (data.children) {
-          data.children.forEach(function(item) {
-            attachRel(item, "1" + (data.children.length > 1 ? 1 : 0));
-          });
-        }
-        return data;
-    };
+  const [ds, setDS] = useState(datasource);
+  const attachRel = (data, flags) => {
+      data.relationship =
+        flags + (data.children && data.children.length > 0 ? 1 : 0);
+      if (data.children) {
+        data.children.forEach(function(item) {
+          attachRel(item, "1" + (data.children.length > 1 ? 1 : 0));
+        });
+      }
+      return data;
+  };
         
-    const dsDigger = new JSONDigger(datasource, "id", "children");
-    const changeHierarchy = async (draggedItemData, dropTargetId) => {
-        await dsDigger.removeNode(draggedItemData.id);
-        await dsDigger.addChildren(dropTargetId, draggedItemData);
-        setDS({ ...dsDigger.ds });
-      };
-    
-    const [ds, setDS] = useState(datasource);
-    useEffect(() => {
-      setDS(datasource);
-    }, [datasource]);
+  const dsDigger = new JSONDigger(datasource, "id", "children");
+  const changeHierarchy = async (draggedItemData, dropTargetId) => {
+    await dsDigger.removeNode(draggedItemData.id);
+    await dsDigger.addChildren(dropTargetId, draggedItemData);
+    setDS({ ...dsDigger.ds });
+  };
 
   return (
     <div className = 'orgchart'>
