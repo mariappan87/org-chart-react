@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import JSONDigger from "json-digger";
 import ChartNode from './ChartNode';
-import '../styles/chart.scss';
+import '../../styles/chart.scss';
 
 const propTypes = {
     datasource: PropTypes.object.isRequired,
@@ -13,8 +13,8 @@ const defaultProps = {
 };
 
 const Chart = ({ datasource, draggable }) => {
-  console.log("Chart Rendered", datasource)
   const [ds, setDS] = useState(datasource);
+  
   const attachRel = (data, flags) => {
       data.relationship =
         flags + (data.children && data.children.length > 0 ? 1 : 0);

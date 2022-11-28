@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import { dragNodeService } from "../services/DragDropService";
+import { dragNodeService } from "../../services/DragDropService";
 import NodeItem from "./NodeItem";
 
 const propTypes = {
-    datasource: PropTypes.object,
+    datasource: PropTypes.object.isRequired,
     draggable: PropTypes.bool,
-    changeHierarchy: PropTypes.func
+    changeHierarchy: PropTypes.func.isRequired
   };
   
 const defaultProps = {

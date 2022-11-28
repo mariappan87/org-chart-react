@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Chart from './components/Chart';
-import SideBar from "./components/SideBar";
+import Chart from './components/chart/Chart';
+import SideBar from "./components/side-bar/SideBar";
 import { createTree, createSubTree } from './services/TreeService';
 import { getOrganizationData } from './services/MockService';
 import './styles/app.scss';
@@ -18,8 +18,8 @@ function App() {
     
     async function fetchData() {
       const rawData = await getOrganizationData();
-      setTreeData(createTree(rawData));
       setDS(rawData);
+      setTreeData(createTree(rawData));
       
       //Hide loader
       loader.classList.add('loader-hide');

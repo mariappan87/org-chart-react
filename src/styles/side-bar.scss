@@ -2,7 +2,10 @@
     display: grid;
     grid-template-rows: 40px auto;
     row-gap:30px;
-
+    border: inset #F74D00 3px;
+    border-width: 0 3px;
+    padding: 10px;
+ 
     .filters {
         display:flex;
         column-gap:10px;

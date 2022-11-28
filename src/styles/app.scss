@@ -3,15 +3,19 @@
     grid-template-columns: 2fr 10fr;
     grid-column-gap: 20px;
     justify-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
 }
+
 .loader {
     position: absolute;
     top: calc(50% - 4em);
     left: calc(50% - 4em);
     width: 2em;
     height: 2em;
-    border: 1.1em solid rgba(0, 0, 0, 0.2);
-    border-left: 1.1em solid #000000;
+    border: 1.1em solid #F7BD00;
+    border-left: 1.1em solid #F74D00;
     border-radius: 50%;
     animation: spinner 1.1s infinite linear;
     transition: opacity 0.3s;

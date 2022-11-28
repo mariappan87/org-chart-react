@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import '../styles/node-item.scss';
+import '../../styles/node-item.scss';
 
 const propTypes = {
-    node: PropTypes.object    
+    node: PropTypes.object.isRequired
 };
   
 function NodeItem({node}) {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import _ from 'lodash';
-import NodeItem from "./NodeItem";
-import '../styles/side-bar.scss';
+import NodeItem from "../chart/NodeItem";
+import '../../styles/side-bar.scss';
 
 const propTypes = {
     datasource: PropTypes.array.isRequired,
@@ -22,7 +22,7 @@ const SideBar = ({ datasource, updateTreeByTeam }) => {
         }
         return datasource.filter(obj => Object.values(obj).some(val => {            
             return typeof val === 'string' &&
-                    val.toUpperCase().indexOf(searchTerm.toUpperCase()) >= 0;
+                val.toUpperCase().indexOf(searchTerm.toUpperCase()) >= 0;
         }));
     };
 
@@ -59,5 +59,6 @@ const SideBar = ({ datasource, updateTreeByTeam }) => {
         </section>
     );
 }
+
 SideBar.propTypes = propTypes;
 export default SideBar;
