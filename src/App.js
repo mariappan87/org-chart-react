@@ -1,35 +1,40 @@
 import React, { useState, useEffect } from "react";
 import Chart from './components/Chart';
 import SideBar from "./components/SideBar";
-import { createTree } from './services/TreeService';
+import { createTree, createSubTree } from './services/TreeService';
+import { getOrganizationData } from './services/MockService';
 import './styles/app.scss';
 
 function App() {
   const [ds, setDS] = useState(null);
   const [treeData, setTreeData] = useState(null);
+  const updateTree = (teamData) => {
+    const treeData = teamData ? createSubTree(teamData): createTree(ds);
+    setTreeData(treeData);
+  }
 
   useEffect(() => {
     const loader = document.querySelector('.loader');
     
     async function fetchData() {
-      const response = await fetch('https://run.mocky.io/v3/c90538da-4279-41df-a781-2f47914ae034');
-      const rawData = await response.json();
-      setTreeData(createTree(rawData))
+      const rawData = await getOrganizationData();
+      setTreeData(createTree(rawData));
       setDS(rawData);
       
       //Hide loader
       loader.classList.add('loader-hide');
     };
 
-    fetchData();
+    fetchData();    
 
   }, []);
+  
 
   return ds ? (
     <>
-      <SideBar datasource={ds}></SideBar>
+      <SideBar datasource={ds} updateTreeByTeam = {updateTree}></SideBar>
       <Chart datasource={treeData} draggable={true}></Chart>
-    </>      
+    </>
   ) : null;
 }
 

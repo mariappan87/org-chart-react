@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import JSONDigger from "json-digger";
 import ChartNode from './ChartNode';
@@ -8,11 +8,12 @@ const propTypes = {
     datasource: PropTypes.object.isRequired,
     draggable: PropTypes.bool
 };
-const defaultProps = {   
+const defaultProps = {
     draggable: false  
 };
 
 const Chart = ({ datasource, draggable }) => {
+  console.log("Chart Rendered", datasource)
   const [ds, setDS] = useState(datasource);
   const attachRel = (data, flags) => {
       data.relationship =
@@ -24,7 +25,11 @@ const Chart = ({ datasource, draggable }) => {
       }
       return data;
   };
-        
+
+  useEffect(() => {
+    setDS(datasource);
+  }, [datasource]);
+  
   const dsDigger = new JSONDigger(datasource, "id", "children");
   const changeHierarchy = async (draggedItemData, dropTargetId) => {
     await dsDigger.removeNode(draggedItemData.id);

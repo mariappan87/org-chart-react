@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import _ from 'lodash';
 import NodeItem from "./NodeItem";
 import '../styles/side-bar.scss';
 
-function SideBar({ datasource }) {
+const propTypes = {
+    datasource: PropTypes.array.isRequired,
+    updateTreeByTeam: PropTypes.func.isRequired
+};
+
+const SideBar = ({ datasource, updateTreeByTeam }) => {
 
     const [selectedTeam, setSelectedTeam] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -31,10 +37,11 @@ function SideBar({ datasource }) {
         setSearchTerm(event.target.value);
         setFilteredItems(filterUsers(event.target.value));
     };
-    
+
     const filterTeamUsers = (event) => {
         setSearchTerm('');
         setSelectedTeam(event.target.value);
+        updateTreeByTeam(teamdata[event.target.value]);
     };
 
     return (
@@ -52,5 +59,5 @@ function SideBar({ datasource }) {
         </section>
     );
 }
-  
+SideBar.propTypes = propTypes;
 export default SideBar;

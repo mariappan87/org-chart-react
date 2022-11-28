@@ -21,7 +21,7 @@ const ChartNode = ({ datasource, draggable, changeHierarchy }) => {
     ].join(" ");
 
     useEffect(() => {
-      const subs1 = dragNodeService.getDragInfo().subscribe(draggedInfo => {
+      const subscriber = dragNodeService.getDragInfo().subscribe(draggedInfo => {
         if (draggedInfo) {
           setAllowedDrop(
             !document
@@ -36,7 +36,7 @@ const ChartNode = ({ datasource, draggable, changeHierarchy }) => {
         }
       });
       return () => {
-        subs1.unsubscribe();
+        subscriber.unsubscribe();
       }
     }, []);
   
@@ -48,7 +48,6 @@ const ChartNode = ({ datasource, draggable, changeHierarchy }) => {
       const copyDS = { ...datasource };
       delete copyDS.relationship;
       event.dataTransfer.setData("text/plain", JSON.stringify(copyDS));
-      // highlight all potential drop targets
       filterAllowedDropNodes(node.current.id);
     };
   
