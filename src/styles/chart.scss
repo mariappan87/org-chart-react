@@ -29,8 +29,8 @@
         }
         &:not(:only-child)::after {
           @include base.line-position;          
-          bottom: -15px;
-          height: 15px;
+          bottom: -25px;
+          height: 25px;
         }
       }
       
